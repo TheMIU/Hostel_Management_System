@@ -12,19 +12,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hms.controller.LoginController">
+<AnchorPane fx:id="pane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hms.controller.LoginController">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/Login.jpg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="1247.0" layoutY="309.0" prefHeight="550.0" prefWidth="480.0" style="-fx-background-color: ffffff; -fx-background-radius: 20; -fx-effect: dropshadow;">
+      <AnchorPane layoutX="1247.0" layoutY="309.0" prefHeight="550.0" prefWidth="480.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
          <effect>
             <DropShadow color="#00000080" height="14.78" offsetX="8.0" offsetY="8.0" radius="12.525" width="37.32" />
          </effect>
          <children>
-            <JFXButton buttonType="RAISED" layoutX="68.0" layoutY="374.0" prefHeight="70.0" prefWidth="340.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Login" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="68.0" layoutY="374.0" onAction="#loginClickOnAction" prefHeight="70.0" prefWidth="340.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Login" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="36.0" />
                </font>

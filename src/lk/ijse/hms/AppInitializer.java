@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lk.ijse.hms.util.Navigation;
+import lk.ijse.hms.util.Routes;
 
 import java.io.IOException;
 
@@ -19,6 +21,6 @@ public class AppInitializer extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.setY(0);
-        primaryStage.setTitle("24D Hostel Management System");
+        primaryStage.setTitle("24D Hostel Management System | Login");
     }
 }
