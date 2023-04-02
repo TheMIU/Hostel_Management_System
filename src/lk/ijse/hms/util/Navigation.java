@@ -17,12 +17,20 @@ public class Navigation {
 
         switch (route) {
             case LOGIN:
-                window.setTitle("Login");
+                window.setTitle("24D Hostel Management System | Login");
                 initUI("Login.fxml");
                 break;
             case DASHBOARD:
-                window.setTitle("Dashboard");
+                window.setTitle("24D Hostel Management System | Dashboard");
                 initUI("Dashboard.fxml");
+                break;
+            case STUDENT:
+                window.setTitle("24D Hostel Management System | Student");
+                initUI("Student.fxml");
+                break;
+            case CHANGE_PASSWORD:
+                window.setTitle("24D Hostel Management System | Change Password");
+                initUI("ChangePassword.fxml");
                 break;
             default:
                 new Alert(Alert.AlertType.ERROR, "UI Not Found!").show();

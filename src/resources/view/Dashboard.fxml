@@ -15,7 +15,7 @@
             <Image url="@../img/Login.jpg" />
          </image>
       </ImageView>
-      <JFXButton buttonType="RAISED" layoutX="74.0" layoutY="84.0" prefHeight="29.0" prefWidth="57.0" ripplerFill="#0d009a" style="-fx-background-radius: 50;" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <JFXButton buttonType="RAISED" layoutX="74.0" layoutY="84.0" onAction="#btnBackOnAction" prefHeight="29.0" prefWidth="57.0" ripplerFill="#0d009a" style="-fx-background-radius: 50;" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <effect>
             <DropShadow color="#00000080" height="14.78" offsetX="8.0" offsetY="8.0" radius="12.525" width="37.32" />
          </effect>
@@ -33,9 +33,9 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <AnchorPane layoutX="458.0" layoutY="398.0" prefHeight="362.0" prefWidth="243.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+      <AnchorPane layoutX="458.0" layoutY="435.0" prefHeight="362.0" prefWidth="243.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="26.0" layoutY="263.0" prefHeight="70.0" prefWidth="192.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Student" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="26.0" layoutY="263.0" onAction="#btnStudentClickOnAction" prefHeight="70.0" prefWidth="192.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Student" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="36.0" />
                </font>
@@ -48,9 +48,9 @@
             <DropShadow color="#00000080" height="14.78" offsetX="8.0" offsetY="8.0" radius="12.525" width="37.32" />
          </effect>
       </AnchorPane>
-      <AnchorPane layoutX="862.0" layoutY="398.0" prefHeight="362.0" prefWidth="243.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+      <AnchorPane layoutX="862.0" layoutY="435.0" prefHeight="362.0" prefWidth="243.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="26.0" layoutY="263.0" prefHeight="70.0" prefWidth="192.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Rooms" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="26.0" layoutY="263.0" onAction="#btnRoomsClickOnAction" prefHeight="70.0" prefWidth="192.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Rooms" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="36.0" />
                </font>
@@ -63,9 +63,9 @@
             <DropShadow color="#00000080" height="14.78" offsetX="8.0" offsetY="8.0" radius="12.525" width="37.32" />
          </effect>
       </AnchorPane>
-      <AnchorPane layoutX="1269.0" layoutY="395.0" prefHeight="362.0" prefWidth="243.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+      <AnchorPane layoutX="1269.0" layoutY="432.0" prefHeight="362.0" prefWidth="243.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="26.0" layoutY="263.0" prefHeight="70.0" prefWidth="192.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Reservation" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="26.0" layoutY="263.0" onAction="#btnReservationClickOnAction" prefHeight="70.0" prefWidth="192.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Reservation" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="30.0" />
                </font>
@@ -78,7 +78,7 @@
             <DropShadow color="#00000080" height="14.78" offsetX="8.0" offsetY="8.0" radius="12.525" width="37.32" />
          </effect>
       </AnchorPane>
-      <JFXButton buttonType="RAISED" layoutX="1776.0" layoutY="100.0" prefHeight="29.0" prefWidth="57.0" ripplerFill="#0d009a" style="-fx-background-radius: 50;" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <JFXButton buttonType="RAISED" layoutX="1776.0" layoutY="84.0" onAction="#btnSettingsClickOnAction" prefHeight="27.0" prefWidth="57.0" ripplerFill="#0d009a" style="-fx-background-radius: 50;" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <effect>
             <DropShadow color="#00000080" height="14.78" offsetX="8.0" offsetY="8.0" radius="12.525" width="37.32" />
          </effect>
@@ -88,10 +88,17 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Settings.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
-      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1795.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="127.0" fitWidth="274.0" layoutX="847.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/BackBtn.png" />
+            <Image url="@../img/logo.png" />
          </image>
       </ImageView>
    </children>
