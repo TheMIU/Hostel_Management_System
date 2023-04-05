@@ -1,5 +1,6 @@
 package lk.ijse.hms.util;
 
+import animatefx.animation.FadeIn;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
@@ -39,5 +40,6 @@ public class Navigation {
     public static void initUI(String location) throws IOException {
         Navigation.pane.getChildren()
                 .add(FXMLLoader.load(Navigation.class.getResource("/resources/view/" + location)));
+        new FadeIn(pane).setSpeed(3).play();
     }
 }
