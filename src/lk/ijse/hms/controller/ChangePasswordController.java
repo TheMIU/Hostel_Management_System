@@ -13,4 +13,7 @@ public class ChangePasswordController {
     public void btnBackOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.DASHBOARD,pane);
     }
+
+    public void ChangeClickOnAction(ActionEvent actionEvent) {
+    }
 }

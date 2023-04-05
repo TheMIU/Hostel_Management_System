@@ -12,19 +12,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hms.controller.LoginController">
+<AnchorPane fx:id="pane" prefHeight="700.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hms.controller.LoginController">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="705.0" fitWidth="1250.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/Login.jpg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="1247.0" layoutY="309.0" prefHeight="550.0" prefWidth="480.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+      <AnchorPane layoutX="729.0" layoutY="126.0" prefHeight="417.0" prefWidth="402.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
          <effect>
             <DropShadow color="#00000080" height="14.78" offsetX="8.0" offsetY="8.0" radius="12.525" width="37.32" />
          </effect>
          <children>
-            <JFXButton buttonType="RAISED" layoutX="68.0" layoutY="374.0" onAction="#loginClickOnAction" prefHeight="70.0" prefWidth="340.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Login" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="30.0" layoutY="335.0" onAction="#loginClickOnAction" prefHeight="70.0" prefWidth="340.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Login" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="36.0" />
                </font>
@@ -32,22 +32,22 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXPasswordField focusColor="#003e9e" layoutX="72.0" layoutY="255.0" prefHeight="50.0" prefWidth="340.0" style="-fx-border-radius: 20; -fx-text-fill: #003E9E;" unFocusColor="#003e9e">
+            <JFXPasswordField fx:id="txtPassword" focusColor="#003e9e" layoutX="34.0" layoutY="223.0" prefHeight="50.0" prefWidth="340.0" style="-fx-border-radius: 20; -fx-text-fill: #003E9E;" unFocusColor="#003e9e">
                <font>
                   <Font name="Calibri" size="24.0" />
                </font>
             </JFXPasswordField>
-            <JFXTextField focusColor="#003e9e" layoutX="73.0" layoutY="132.0" prefHeight="50.0" prefWidth="340.0" style="-fx-border-radius: 20; -fx-text-fill: #003E9E;" unFocusColor="#003e9e">
+            <JFXTextField fx:id="txtUserName" focusColor="#003e9e" layoutX="35.0" layoutY="100.0" prefHeight="50.0" prefWidth="340.0" style="-fx-border-radius: 20; -fx-text-fill: #003E9E;" unFocusColor="#003e9e">
                <font>
                   <Font name="Calibri" size="24.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="75.0" layoutY="94.0" text="User Name" textFill="#003e9e">
+            <Label layoutX="37.0" layoutY="62.0" text="User Name" textFill="#003e9e">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="76.0" layoutY="216.0" text="Password" textFill="#003e9e">
+            <Label layoutX="38.0" layoutY="184.0" text="Password" textFill="#003e9e">
                <font>
                   <Font size="18.0" />
                </font>
@@ -57,10 +57,10 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Hyperlink layoutX="271.0" layoutY="456.0" text="Forgot Password ?" underline="true" />
+            <Hyperlink layoutX="266.0" layoutY="418.0" onAction="#forgotClickOnAction" text="Forgot Password ?" underline="true" />
          </children>
       </AnchorPane>
-      <ImageView fitHeight="189.0" fitWidth="405.0" layoutX="327.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="125.0" fitWidth="271.0" layoutX="196.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/logo.png" />
          </image>
