@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -42,7 +43,7 @@
             </TableView>
             <AnchorPane layoutX="740.0" layoutY="64.0" prefHeight="452.0" prefWidth="410.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
                <children>
-                  <JFXButton fx:id="btnEdit1" buttonType="RAISED" layoutX="189.0" layoutY="11.0" onAction="#btnEditOnAction" prefHeight="49.0" prefWidth="115.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Edit" textFill="WHITE">
+                  <JFXButton fx:id="btnEdit" buttonType="RAISED" layoutX="189.0" layoutY="11.0" onAction="#btnEditOnAction" prefHeight="49.0" prefWidth="115.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Edit" textFill="WHITE">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
@@ -50,7 +51,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="24.0" layoutY="400.0" onAction="#btnDeleteOnAction" prefHeight="49.0" prefWidth="115.0" ripplerFill="#0d009a" style="-fx-background-color: #CF5200; -fx-background-radius: 20;" text="Delete" textFill="WHITE">
+                  <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="24.0" layoutY="400.0" onAction="#btnDeleteOnAction" prefHeight="49.0" prefWidth="115.0" ripplerFill="#0d009a" style="-fx-background-color: #CF5200; -fx-background-radius: 20;" text="Delete" textFill="WHITE">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
@@ -58,7 +59,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="btnNew1" buttonType="RAISED" layoutX="40.0" layoutY="11.0" onAction="#btnNewOnAction" prefHeight="49.0" prefWidth="126.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="+ New" textFill="WHITE">
+                  <JFXButton fx:id="btnNew" buttonType="RAISED" layoutX="40.0" layoutY="11.0" onAction="#btnNewOnAction" prefHeight="49.0" prefWidth="126.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="+ New" textFill="WHITE">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
@@ -82,14 +83,13 @@
                      <children>
                         <Label prefHeight="24.0" prefWidth="140.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="ID" GridPane.halignment="RIGHT" />
                         <Label prefHeight="24.0" prefWidth="140.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Name" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <JFXTextField fx:id="txtDOB1" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" prefHeight="39.0" prefWidth="311.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label prefHeight="24.0" prefWidth="139.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="DOB" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
                         <Label prefHeight="24.0" prefWidth="140.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Address" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        <JFXTextField fx:id="txtAddress1" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" prefHeight="34.0" prefWidth="314.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <JFXTextField fx:id="txtID1" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="269.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" />
-                        <JFXTextField fx:id="txtName1" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" prefHeight="37.0" prefWidth="308.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="txtAddress" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" prefHeight="34.0" prefWidth="314.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="txtID" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="269.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" />
+                        <JFXTextField fx:id="txtName" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" prefHeight="37.0" prefWidth="308.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label prefHeight="24.0" prefWidth="140.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Contact" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                        <JFXTextField fx:id="txtContact1" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" prefHeight="34.0" prefWidth="314.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <JFXTextField fx:id="txtContact" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" prefHeight="34.0" prefWidth="314.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label layoutX="10.0" layoutY="297.0" prefHeight="24.0" prefWidth="139.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Gender" GridPane.rowIndex="5" />
                         <GridPane prefHeight="50.0" prefWidth="302.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <columnConstraints>
@@ -101,24 +101,25 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <RadioButton fx:id="rbFemale1" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Female" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <RadioButton fx:id="rbFemale" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Female" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                                  <toggleGroup>
-                                    <ToggleGroup fx:id="gender1" />
+                                    <ToggleGroup fx:id="gender" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton fx:id="rbMale1" contentDisplay="CENTER" mnemonicParsing="false" selected="true" text="Male" textAlignment="CENTER" toggleGroup="$gender1" GridPane.rowIndex="1">
+                              <RadioButton fx:id="rbMale" contentDisplay="CENTER" mnemonicParsing="false" selected="true" text="Male" textAlignment="CENTER" toggleGroup="$gender" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </RadioButton>
                            </children>
                         </GridPane>
+                        <JFXDatePicker fx:id="dateDOB" defaultColor="#003e9e" prefHeight="42.0" prefWidth="276.0" style="-fx-font-size: 20;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
-                  <JFXButton buttonType="RAISED" layoutX="151.0" layoutY="400.0" onAction="#btnCancelOnAction" prefHeight="49.0" prefWidth="115.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Cancel" textFill="WHITE">
+                  <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="151.0" layoutY="400.0" onAction="#btnCancelOnAction" prefHeight="49.0" prefWidth="115.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Cancel" textFill="WHITE">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
@@ -126,7 +127,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="btnSave1" buttonType="RAISED" layoutX="281.0" layoutY="400.0" onAction="#btnSaveOnAction" prefHeight="49.0" prefWidth="115.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Save" textFill="WHITE">
+                  <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="281.0" layoutY="400.0" onAction="#btnSaveOnAction" prefHeight="49.0" prefWidth="115.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Save" textFill="WHITE">
                      <font>
                         <Font name="Calibri Bold" size="23.0" />
                      </font>
