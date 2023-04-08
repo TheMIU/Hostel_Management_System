@@ -3,25 +3,25 @@ package lk.ijse.hms.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import com.mysql.cj.x.protobuf.Mysqlx;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.hms.bo.StudentBO;
+import lk.ijse.hms.bo.BOFactory;
+import lk.ijse.hms.bo.custom.StudentBO;
+import lk.ijse.hms.bo.custom.impl.StudentBOImpl;
 import lk.ijse.hms.dto.StudentDTO;
-import lk.ijse.hms.entity.Student;
 import lk.ijse.hms.util.Navigation;
 import lk.ijse.hms.util.Routes;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class StudentController {
     public AnchorPane pane;
@@ -34,9 +34,6 @@ public class StudentController {
 
     @FXML
     private JFXButton btnNew;
-
-    @FXML
-    private JFXTextField txtDOB;
 
     @FXML
     private JFXTextField txtAddress;
@@ -86,6 +83,7 @@ public class StudentController {
     @FXML
     private JFXButton btnSave;
 
+    StudentBO studentBO = (StudentBO) BOFactory.getBoFactory().getBO(BOFactory.Type.STUDENT);
 
     public void initialize() {
         colID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -123,7 +121,7 @@ public class StudentController {
     private void loadStudentData(String SearchID) {
         ObservableList<StudentDTO> list = FXCollections.observableArrayList();
 
-        ArrayList<StudentDTO> studentDTOS = StudentBO.getStudentData();
+        ArrayList<StudentDTO> studentDTOS = studentBO.getStudentData();
         for (StudentDTO std : studentDTOS) {
             if (std.getId().contains(SearchID) ||
                     std.getName().contains(SearchID) ||
@@ -136,7 +134,6 @@ public class StudentController {
                 list.add(studentDTO);
             }
         }
-
         tblStudent.setItems(list);
     }
 
@@ -145,6 +142,7 @@ public class StudentController {
         txtAddress.setEditable(b);
         txtContact.setEditable(b);
         txtID.setEditable(b);
+        dateDOB.setEditable(b);
     }
 
     private void setData(StudentDTO newValue) {
@@ -152,53 +150,125 @@ public class StudentController {
         txtName.setText(newValue.getName());
         txtAddress.setText(newValue.getAddress());
         txtContact.setText(newValue.getContact_no());
-        txtDOB.setText(newValue.getDob().toString());
-        rbMale.setText(newValue.getGender());
+        dateDOB.setValue(LocalDate.parse(newValue.getDob()));
+        if (newValue.getGender().equals("Male")) {
+            rbMale.setSelected(true);
+        } else {
+            rbFemale.setSelected(true);
+        }
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
-        String nameText = txtName.getText();
-        String addressText = txtAddress.getText();
-        String contactText = txtContact.getText();
-        String idText = txtID.getText();
-        String dobText = dateDOB.getValue().toString();
-        RadioButton rb = (RadioButton) gender.getSelectedToggle();
-        String genderText = rb.getText();
+        if (!txtName.getText().equals("") || txtID.getText().equals("") || txtContact.getText().equals("")) {
+            String nameText = txtName.getText();
+            String addressText = txtAddress.getText();
+            String contactText = txtContact.getText();
+            String idText = txtID.getText();
+            String dobText = dateDOB.getValue().toString();
+            RadioButton rb = (RadioButton) gender.getSelectedToggle();
+            String genderText = rb.getText();
 
-        StudentDTO studentDTO = new StudentDTO(idText, nameText, addressText, contactText, dobText, genderText);
-        Boolean isAdded = StudentBO.addStudent(studentDTO);
+            if (btnSave.getText().equals("Save")) {
+                StudentDTO studentDTO = new StudentDTO(idText, nameText, addressText, contactText, dobText, genderText);
+                Boolean isAdded = studentBO.addStudent(studentDTO);
 
-        if (isAdded) {
-            new Alert(Alert.AlertType.INFORMATION, " Student Added ! ").show();
+                if (isAdded) {
+                    new Alert(Alert.AlertType.INFORMATION, " Student Added ! ").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                }
+            }
+
+            if (btnSave.getText().equals("Update")) {
+                StudentDTO studentDTO = new StudentDTO(idText, nameText, addressText, contactText, dobText, genderText);
+                Boolean isUpdated = studentBO.updateStudent(studentDTO);
+
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.INFORMATION, " Student Updated ! ").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                }
+            }
+            loadStudentData("");
+
         } else {
-            new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+            new Alert(Alert.AlertType.WARNING, "Fill data !").show();
         }
+        clearFields();
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
-        String idText = txtID.getText();
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Deleted Selected ?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.YES) {
+            String idText = txtID.getText();
 
-        StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setId(idText);
+            StudentDTO studentDTO = new StudentDTO();
+            studentDTO.setId(idText);
 
-        Boolean isAdded = StudentBO.deleteStudent(studentDTO);
+            Boolean isAdded = studentBO.deleteStudent(studentDTO);
 
-        if (isAdded) {
-            new Alert(Alert.AlertType.INFORMATION, " Student Deleted ! ").show();
-        } else {
-            new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+            if (isAdded) {
+                new Alert(Alert.AlertType.INFORMATION, " Student Deleted ! ").show();
+                clearFields();
+            } else {
+                new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+            }
         }
+
+        loadStudentData("");
     }
 
 
     public void btnEditOnAction(ActionEvent actionEvent) {
+        if (!txtID.getText().equals("")) {
+            btnDelete.setDisable(false);
+            btnCancel.setDisable(false);
+            btnSave.setDisable(false);
+            btnSave.setText("Update");
+            makeEditableTxtField(true);
+
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Employee ID Not selected !").show();
+        }
     }
 
     public void btnNewOnAction(ActionEvent actionEvent) {
+        makeEditableTxtField(true);
+        clearFields();
+
+        btnEdit.setDisable(true);
+        btnDelete.setDisable(true);
+        btnCancel.setDisable(false);
+        btnSave.setDisable(false);
+        btnSave.setText("Save");
+        String nextID = generateNextID(studentBO.getCurrentID());
+        txtID.setText(nextID);
+        txtName.requestFocus();
+    }
+
+    private void clearFields() {
+        txtID.clear();
+        txtName.clear();
+        txtAddress.clear();
+        txtContact.clear();
+        dateDOB.setValue(LocalDate.parse("2000-01-01"));
+        rbMale.setSelected(true);
+    }
+
+    private String generateNextID(String currentID) {
+        if (currentID != null) {
+            String[] ids = currentID.split("S0");
+            int id = Integer.parseInt(ids[1]);
+            id += 1;
+
+            return "S0" + id;
+        }
+        return "S01";
     }
 
     public void btnCancelOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.STUDENT, pane);
+        clearFields();
     }
 
     public void btnBackOnAction(ActionEvent actionEvent) throws IOException {
