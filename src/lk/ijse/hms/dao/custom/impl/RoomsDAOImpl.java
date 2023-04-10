@@ -5,23 +5,24 @@
 
 package lk.ijse.hms.dao.custom.impl;
 
-import lk.ijse.hms.dao.custom.StudentDAO;
+import lk.ijse.hms.dao.custom.RoomsDAO;
+import lk.ijse.hms.entity.Room;
 import lk.ijse.hms.entity.Student;
 import lk.ijse.hms.util.SessionFactoryConfig;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class StudentDAOImpl implements StudentDAO{
-    public boolean add(Student student) {
+public class RoomsDAOImpl implements RoomsDAO {
+    public boolean add(Room room) {
         Session session = SessionFactoryConfig.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
-            session.save(student);
+            session.save(room);
             transaction.commit();
             session.close();
             return true;
@@ -32,23 +33,23 @@ public class StudentDAOImpl implements StudentDAO{
         }
     }
 
-    public ArrayList<Student> getData() {
+    public ArrayList<Room> getData() {
         Session session = SessionFactoryConfig.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
-        String sql = "SELECT * FROM student ORDER BY CAST(SUBSTRING(id, 2) AS UNSIGNED)";
+        String sql = "SELECT * FROM room ORDER BY CAST(SUBSTRING(room_type_id, 2) AS UNSIGNED)";
         NativeQuery sqlQuery = session.createSQLQuery(sql);
 
-        sqlQuery.addEntity(Student.class);
+        sqlQuery.addEntity(Room.class);
 
-        List <Student> studentList = sqlQuery.list();
-        ArrayList<Student> studentData = new ArrayList<>();
+        List<Room> roomList = sqlQuery.list();
+        ArrayList<Room> roomData = new ArrayList<>();
 
-        for(Student student : studentList){
-            studentData.add(student);
+        for(Room room : roomList){
+            roomData.add(room);
         }
 
-        return studentData;
+        return roomData;
     }
 
     @Override
@@ -57,8 +58,8 @@ public class StudentDAOImpl implements StudentDAO{
         Transaction transaction = session.beginTransaction();
 
         try {
-            Student student = session.load(Student.class, id);
-            session.delete(student);
+            Room room = session.load(Room.class, id);
+            session.delete(room);
             transaction.commit();
             session.close();
             return true;
@@ -74,35 +75,34 @@ public class StudentDAOImpl implements StudentDAO{
         Session session = SessionFactoryConfig.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
-       // session.createQuery("FROM employee ORDER BY CAST(SUBSTRING(EmpID, 2) AS UNSIGNED) DESC LIMIT 1");
-      try{
-          String sql = "SELECT * FROM student ORDER BY CAST(SUBSTRING(id, 2) AS UNSIGNED) DESC LIMIT 1";
-          NativeQuery sqlQuery = session.createSQLQuery(sql);
+        try{
+            String sql = "SELECT * FROM room ORDER BY CAST(SUBSTRING(room_type_id, 2) AS UNSIGNED) DESC LIMIT 1";
+            NativeQuery sqlQuery = session.createSQLQuery(sql);
 
-          sqlQuery.addEntity(Student.class);
+            sqlQuery.addEntity(Room.class);
 
-          List <Student> studentList = sqlQuery.list();
-          for(Student student : studentList){
-              return student.getId();
-          }
-          transaction.commit();
-          session.close();
+            List <Room> roomList = sqlQuery.list();
+            for(Room room : roomList){
+                return room.getRoom_type_id();
+            }
+            transaction.commit();
+            session.close();
 
-      }catch (Exception e){
-          transaction.commit();
-          session.close();
-          return null;
-      }
+        }catch (Exception e){
+            transaction.commit();
+            session.close();
+            return null;
+        }
         return null;
     }
 
     @Override
-    public boolean update(Student student){
+    public boolean update(Room room){
         Session session = SessionFactoryConfig.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
         try {
-            session.update(student);
+            session.update(room);
             transaction.commit();
             session.close();
             return true;
@@ -112,5 +112,4 @@ public class StudentDAOImpl implements StudentDAO{
             return false;
         }
     }
-
 }

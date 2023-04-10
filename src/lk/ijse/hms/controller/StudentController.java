@@ -3,7 +3,6 @@ package lk.ijse.hms.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import com.mysql.cj.x.protobuf.Mysqlx;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.hms.bo.BOFactory;
 import lk.ijse.hms.bo.custom.StudentBO;
-import lk.ijse.hms.bo.custom.impl.StudentBOImpl;
 import lk.ijse.hms.dto.StudentDTO;
 import lk.ijse.hms.util.Navigation;
 import lk.ijse.hms.util.Routes;
@@ -229,7 +227,7 @@ public class StudentController {
             makeEditableTxtField(true);
 
         } else {
-            new Alert(Alert.AlertType.ERROR, "Employee ID Not selected !").show();
+            new Alert(Alert.AlertType.ERROR, "Not selected !").show();
         }
     }
 
