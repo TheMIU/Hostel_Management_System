@@ -24,30 +24,30 @@
             <DropShadow color="#00000080" height="14.78" offsetX="8.0" offsetY="8.0" radius="12.525" width="37.32" />
          </effect>
          <children>
-            <JFXButton buttonType="RAISED" layoutX="30.0" layoutY="335.0" onAction="#loginClickOnAction" prefHeight="70.0" prefWidth="340.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 20;" text="Login" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="30.0" layoutY="331.0" onAction="#loginClickOnAction" prefHeight="50.0" prefWidth="340.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 12;" text="Login" textFill="WHITE">
                <font>
-                  <Font name="Calibri Bold" size="36.0" />
+                  <Font name="Calibri Bold" size="18.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXPasswordField fx:id="txtPassword" focusColor="#003e9e" layoutX="34.0" layoutY="223.0" prefHeight="50.0" prefWidth="340.0" style="-fx-border-radius: 20; -fx-text-fill: #003E9E;" unFocusColor="#003e9e">
+            <JFXPasswordField fx:id="txtPassword" focusColor="#003e9e" layoutX="34.0" layoutY="239.0" prefHeight="50.0" prefWidth="333.0" style="-fx-border-radius: 20; -fx-text-fill: #003E9E;" unFocusColor="#003e9e">
                <font>
-                  <Font name="Calibri" size="24.0" />
+                  <Font name="Calibri" size="14.0" />
                </font>
             </JFXPasswordField>
-            <JFXTextField fx:id="txtUserName" focusColor="#003e9e" layoutX="35.0" layoutY="100.0" prefHeight="50.0" prefWidth="340.0" style="-fx-border-radius: 20; -fx-text-fill: #003E9E;" unFocusColor="#003e9e">
+            <JFXTextField fx:id="txtUserName" focusColor="#003e9e" layoutX="35.0" layoutY="116.0" prefHeight="50.0" prefWidth="333.0" style="-fx-border-radius: 20; -fx-text-fill: #003E9E;" unFocusColor="#003e9e">
                <font>
-                  <Font name="Calibri" size="24.0" />
+                  <Font name="Calibri" size="14.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="37.0" layoutY="62.0" text="User Name" textFill="#003e9e">
+            <Label layoutX="37.0" layoutY="84.0" text="User Name" textFill="#003e9e">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="38.0" layoutY="184.0" text="Password" textFill="#003e9e">
+            <Label layoutX="38.0" layoutY="206.0" text="Password" textFill="#003e9e">
                <font>
                   <Font size="18.0" />
                </font>
@@ -57,7 +57,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Hyperlink layoutX="266.0" layoutY="418.0" onAction="#forgotClickOnAction" text="Forgot Password ?" underline="true" />
+            <Hyperlink layoutX="266.0" layoutY="394.0" onAction="#forgotClickOnAction" text="Forgot Password ?" underline="true" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="125.0" fitWidth="271.0" layoutX="196.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
