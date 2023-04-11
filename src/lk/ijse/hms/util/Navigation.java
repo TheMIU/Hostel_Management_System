@@ -33,6 +33,10 @@ public class Navigation {
                 window.setTitle("24D Hostel Management System | Rooms");
                 initUI("Rooms.fxml");
                 break;
+            case RESERVATION:
+                window.setTitle("24D Hostel Management System | Reservation");
+                initUI("Reservation.fxml");
+                break;
             case CHANGE_PASSWORD:
                 window.setTitle("24D Hostel Management System | Change Password");
                 initUI("ChangePassword.fxml");

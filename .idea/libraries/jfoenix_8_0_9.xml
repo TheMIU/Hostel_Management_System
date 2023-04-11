@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="jfoenix-8.0.9">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/lk/ijse/hms/lib/jfoenix-8.0.9.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
