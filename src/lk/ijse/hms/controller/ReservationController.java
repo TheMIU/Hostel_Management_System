@@ -14,8 +14,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.hms.bo.BOFactory;
 import lk.ijse.hms.bo.custom.ReservationBO;
-import lk.ijse.hms.bo.custom.RoomsBO;
-import lk.ijse.hms.bo.custom.StudentBO;
 import lk.ijse.hms.dto.CustomDTO;
 import lk.ijse.hms.dto.ReservationDTO;
 import lk.ijse.hms.dto.RoomsDTO;
@@ -396,50 +394,59 @@ public class ReservationController {
         RadioButton rb = (RadioButton) PaymentStatus.getSelectedToggle();
         reservationDTO.setStatus(rb.getText());
 
-        reservationDTO.setRoom(new Room
-                (roomsDTO.getRoom_type_id(),
-                        roomsDTO.getType(),
-                        roomsDTO.getKey_money(),
-                        roomsDTO.getQty()));
+        try {
+            reservationDTO.setRoom(new Room
+                    (roomsDTO.getRoom_type_id(),
+                            roomsDTO.getType(),
+                            roomsDTO.getKey_money(),
+                            roomsDTO.getQty()));
 
-        reservationDTO.setStudent(new Student
-                (studentDTO.getId(),
-                        studentDTO.getName(),
-                        studentDTO.getAddress(),
-                        studentDTO.getContact_no(),
-                        studentDTO.getDob(),
-                        studentDTO.getGender()));
+            reservationDTO.setStudent(new Student
+                    (studentDTO.getId(),
+                            studentDTO.getName(),
+                            studentDTO.getAddress(),
+                            studentDTO.getContact_no(),
+                            studentDTO.getDob(),
+                            studentDTO.getGender()));
+        } catch (Exception ex) {
+            new Alert(Alert.AlertType.WARNING, " Select / Fill Data ! ").show();
+        }
 
-        if (btnReserve.getText().equals("Reserve")) {
-            boolean isAdded = reservationBO.addReservation(reservationDTO);
-            if (isAdded) {
-                new Alert(Alert.AlertType.INFORMATION, " Added ! ").show();
+        if (dateDate.getValue() != null) {
+            if (btnReserve.getText().equals("Reserve")) {
+                boolean isAdded = reservationBO.addReservation(reservationDTO);
+                if (isAdded) {
+                    new Alert(Alert.AlertType.INFORMATION, " Added ! ").show();
 
-                loadReservationTable("");
-                loadRoomTable("");
-                loadStudentTable("");
+                    loadReservationTable("");
+                    loadRoomTable("");
+                    loadStudentTable("");
 
-                newReservationPane.setDisable(true);
-                reservationDetailsPane.setDisable(false);
+                    newReservationPane.setDisable(true);
+                    reservationDetailsPane.setDisable(false);
 
+                } else {
+                    new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                }
             } else {
-                new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                boolean isAdded = reservationBO.updateReservation(reservationDTO);
+                if (isAdded) {
+                    new Alert(Alert.AlertType.INFORMATION, " Updated ! ").show();
+
+                    loadReservationTable("");
+                    loadRoomTable("");
+                    loadStudentTable("");
+
+                    newReservationPane.setDisable(true);
+                    reservationDetailsPane.setDisable(false);
+
+                } else {
+                    new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                }
+
             }
         } else {
-            boolean isAdded = reservationBO.updateReservation(reservationDTO);
-            if (isAdded) {
-                new Alert(Alert.AlertType.INFORMATION, " Updated ! ").show();
-
-                loadReservationTable("");
-                loadRoomTable("");
-                loadStudentTable("");
-
-                newReservationPane.setDisable(true);
-                reservationDetailsPane.setDisable(false);
-
-            } else {
-                new Alert(Alert.AlertType.ERROR, " Error ! ").show();
-            }
+            new Alert(Alert.AlertType.WARNING, " Wrong Date ! ").show();
         }
     }
 }
