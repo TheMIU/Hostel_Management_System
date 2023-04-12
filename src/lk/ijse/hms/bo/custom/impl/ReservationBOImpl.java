@@ -67,8 +67,6 @@ public class ReservationBOImpl implements ReservationBO {
         ArrayList<CustomEntity> customEntities = queryDAO.getData();
 
         for (CustomEntity c : customEntities) {
-            System.out.println(c);
-
             customDTOS.add(new CustomDTO(
                     c.getRes_id(),
                     c.getRes_date(),

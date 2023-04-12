@@ -189,7 +189,11 @@ public class ReservationController {
 
         tblReservation.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                txtResID.setText(newValue.getId());
+                txtResID.setText(newValue.getRes_id());
+                txtSearchRoom.setText(newValue.getRoom_type_id());
+                txtRoomID.setText(newValue.getRoom_type_id());
+                txtSearchStudent.setText(newValue.getId());
+                txtStudentID.setText(newValue.getId());
             }
         });
 
@@ -207,9 +211,9 @@ public class ReservationController {
 
         ArrayList<CustomDTO> customDTOS = reservationBO.getReservationData();
         for (CustomDTO c : customDTOS) {
-            if (true/* c.getRes_id().contains(SearchID) ||
+            if ( c.getRes_id().contains(SearchID) ||
                     c.getRoom_type_id().contains(SearchID) ||
-                    c.getType().contains(SearchID)*/) {
+                    c.getType().contains(SearchID)) {
 
                 CustomDTO customDTO = new CustomDTO(
                         c.getRes_id(),
@@ -220,7 +224,7 @@ public class ReservationController {
                         c.getName(),
                         c.getKey_money(),
                         c.getStatus());
-                System.out.println(customDTO);
+
                 list.add(customDTO);
             }
         }
@@ -274,6 +278,10 @@ public class ReservationController {
     void btnNewOnAction(ActionEvent actionEvent) {
         String nextID = generateNextID(reservationBO.getCurrentID());
         txtResID.setText(nextID);
+        txtSearchRoom.setText("");
+        txtRoomID.setText("");
+        txtSearchStudent.setText("");
+        txtStudentID.setText("");
 
         dateDate.setValue(LocalDate.now());
 
@@ -283,6 +291,7 @@ public class ReservationController {
         btnDelete.setDisable(true);
 
         btnReserve.setText("Reserve");
+
     }
 
     private String generateNextID(String currentID) {
@@ -307,15 +316,18 @@ public class ReservationController {
         txtRoomID.clear();
     }
 
+
+    @FXML
+    void btnEditOnAction(ActionEvent event) {
+        newReservationPane.setDisable(false);
+        reservationDetailsPane.setDisable(true);
+    }
+
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
 
     }
 
-    @FXML
-    void btnEditOnAction(ActionEvent event) {
-
-    }
 
     @FXML
     void btnReserveOnAction(ActionEvent event) {

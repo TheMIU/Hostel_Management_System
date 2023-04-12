@@ -43,7 +43,7 @@ public class ReservationDAOImpl implements ReservationDAO {
         Transaction transaction = session.beginTransaction();
 
         try{
-            String sql = "SELECT * FROM reservation ORDER BY CAST(SUBSTRING(res_id, 2) AS UNSIGNED) DESC LIMIT 1";
+            String sql = "SELECT * FROM reservation ORDER BY CAST(SUBSTRING(res_id, 3) AS UNSIGNED) DESC LIMIT 1";
             NativeQuery sqlQuery = session.createSQLQuery(sql);
 
             sqlQuery.addEntity(Reservation.class);

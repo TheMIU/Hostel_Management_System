@@ -46,7 +46,6 @@ public class QueryDAOImpl implements QueryDAO {
         sqlQuery.setResultTransformer(Transformers.aliasToBean(CustomEntity.class));
 
         List<CustomEntity> customEntities = sqlQuery.list();
-        System.out.println(customEntities);
         ArrayList<CustomEntity> customData = new ArrayList<>();
 
         for (CustomEntity entity : customEntities) {

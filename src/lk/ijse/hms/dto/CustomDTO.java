@@ -39,7 +39,7 @@ public class CustomDTO {
     private String gender;
 
 
-    public CustomDTO(String res_id, LocalDate res_date, String status, String room_type_id, String type, String key_money, String id, String name) {
+    public CustomDTO(String res_id, LocalDate res_date, String room_type_id,  String type,String id, String name,String key_money,String status ) {
         this.res_id = res_id;
         this.res_date = res_date;
         this.status = status;
