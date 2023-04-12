@@ -1,5 +1,7 @@
 package lk.ijse.hms.dao;
 
+import lk.ijse.hms.dao.custom.impl.QueryDAOImpl;
+import lk.ijse.hms.dao.custom.impl.ReservationDAOImpl;
 import lk.ijse.hms.dao.custom.impl.RoomsDAOImpl;
 import lk.ijse.hms.dao.custom.impl.StudentDAOImpl;
 
@@ -16,7 +18,8 @@ public class FactoryDAO {
     public enum Types {
         STUDENT,
         ROOM,
-        RECEPTION
+        RECEPTION,
+        JOIN_QUERY
     }
 
     // factory - Object creation logic eka hide krnna.
@@ -28,8 +31,10 @@ public class FactoryDAO {
                 return new StudentDAOImpl();
             case ROOM:
                 return new RoomsDAOImpl();
-            /*case RECEPTION:
-                return new RoomsDAOImpl();*/
+            case RECEPTION:
+                return new ReservationDAOImpl();
+            case JOIN_QUERY:
+                return new QueryDAOImpl();
             default: return null;
         }
     }

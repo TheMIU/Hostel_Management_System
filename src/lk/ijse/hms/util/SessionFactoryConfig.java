@@ -1,5 +1,6 @@
 package lk.ijse.hms.util;
 
+import lk.ijse.hms.entity.CustomEntity;
 import lk.ijse.hms.entity.Reservation;
 import lk.ijse.hms.entity.Room;
 import lk.ijse.hms.entity.Student;
@@ -12,14 +13,13 @@ import java.util.Properties;
 
 public class SessionFactoryConfig {
     private static SessionFactoryConfig sessionFactoryConfig;
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     private SessionFactoryConfig() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(Student.class);
         configuration.addAnnotatedClass(Room.class);
         configuration.addAnnotatedClass(Reservation.class);
-
 
         Properties properties = new Properties();
         try {

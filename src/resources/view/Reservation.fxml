@@ -26,7 +26,7 @@
             <Image url="@../img/Login.jpg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="41.0" layoutY="131.0" prefHeight="277.0" prefWidth="1168.0" style="-fx-background-color: ffffff; -fx-background-radius: 5;">
+      <AnchorPane fx:id="reservationDetailsPane" layoutX="41.0" layoutY="131.0" prefHeight="277.0" prefWidth="1168.0" style="-fx-background-color: ffffff; -fx-background-radius: 5;">
          <effect>
             <DropShadow color="#00000080" height="14.78" offsetX="8.0" offsetY="8.0" radius="12.525" width="37.32" />
          </effect>
@@ -46,7 +46,7 @@
             </TableView>
             <BorderPane layoutX="1023.0" layoutY="173.0" prefHeight="74.0" prefWidth="129.0">
                <center>
-                  <JFXButton fx:id="btnNew" buttonType="RAISED" onAction="#btnSaveOnAction" prefHeight="20.0" prefWidth="100.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 12;" text="+ New" textFill="WHITE" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="btnNew" buttonType="RAISED" onAction="#btnNewOnAction" prefHeight="20.0" prefWidth="100.0" ripplerFill="#0d009a" style="-fx-background-color: #003E9E; -fx-background-radius: 12;" text="+ New" textFill="WHITE" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Calibri Bold" size="14.0" />
                      </font>
@@ -122,7 +122,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <AnchorPane layoutX="41.0" layoutY="411.0" prefHeight="238.0" prefWidth="1168.0" style="-fx-background-color: ffffff; -fx-background-radius: 5;">
+      <AnchorPane fx:id="newReservationPane" layoutX="41.0" layoutY="411.0" prefHeight="238.0" prefWidth="1168.0" style="-fx-background-color: ffffff; -fx-background-radius: 5;">
          <children>
             <AnchorPane layoutX="11.0" layoutY="46.0" prefHeight="184.0" prefWidth="1152.0" style="-fx-border-radius: 12;">
                <children>
@@ -187,7 +187,7 @@
                         <JFXTextField fx:id="txtSearchStudent" focusColor="#0d009a" labelFloat="true" layoutX="156.0" layoutY="2.0" prefHeight="24.0" prefWidth="129.0" promptText="Search Student" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#6d6e71" />
                      </children>
                   </AnchorPane>
-                  <GridPane layoutX="733.0" layoutY="39.0" prefHeight="133.0" prefWidth="299.0">
+                  <GridPane layoutX="733.0" layoutY="5.0" prefHeight="167.0" prefWidth="299.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="351.0" minWidth="10.0" prefWidth="109.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="591.0000305175781" minWidth="10.0" prefWidth="191.0" />
@@ -196,14 +196,16 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label prefHeight="24.0" prefWidth="140.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Res. ID" GridPane.halignment="RIGHT" />
-                        <Label prefHeight="24.0" prefWidth="139.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Res. Date" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <JFXTextField fx:id="txtID" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="134.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" />
-                        <Label layoutX="10.0" layoutY="297.0" prefHeight="24.0" prefWidth="139.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Payment Status" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        <JFXDatePicker fx:id="dateDate" defaultColor="#003e9e" prefHeight="28.0" prefWidth="141.0" style="-fx-font-size: 12;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <GridPane prefHeight="44.0" prefWidth="144.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label prefHeight="24.0" prefWidth="140.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Student ID" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <Label prefHeight="24.0" prefWidth="139.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Res. Date" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <JFXTextField fx:id="txtStudentID" focusColor="#0d009a" labelFloat="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="134.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label layoutX="10.0" layoutY="297.0" prefHeight="24.0" prefWidth="139.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Payment Status" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                        <JFXDatePicker fx:id="dateDate" defaultColor="#003e9e" prefHeight="28.0" prefWidth="141.0" style="-fx-font-size: 12;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <GridPane prefHeight="44.0" prefWidth="144.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="10.0" prefWidth="69.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="276.0" minWidth="10.0" prefWidth="120.0" />
@@ -228,6 +230,10 @@
                               </RadioButton>
                            </children>
                         </GridPane>
+                        <Label layoutX="10.0" layoutY="83.0" prefHeight="24.0" prefWidth="140.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Res. ID" />
+                        <Label layoutX="10.0" layoutY="15.0" prefHeight="24.0" prefWidth="140.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Room ID" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="txtResID" focusColor="#0d009a" labelFloat="true" layoutX="118.0" layoutY="82.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="134.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" />
+                        <JFXTextField fx:id="txtRoomID" focusColor="#0d009a" labelFloat="true" layoutX="118.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="134.0" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #6D6E71;" unFocusColor="#616161" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

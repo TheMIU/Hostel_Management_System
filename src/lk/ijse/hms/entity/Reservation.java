@@ -16,7 +16,7 @@ public class Reservation {
     @Id
     private String res_id;
     @Column(columnDefinition = "DATE")
-    private LocalDate date;
+    private String res_date;
     private String status;
 
     @ManyToOne(cascade = CascadeType.ALL)

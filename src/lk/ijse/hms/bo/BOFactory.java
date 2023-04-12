@@ -5,6 +5,7 @@
 
 package lk.ijse.hms.bo;
 
+import lk.ijse.hms.bo.custom.impl.ReservationBOImpl;
 import lk.ijse.hms.bo.custom.impl.RoomsBOImpl;
 import lk.ijse.hms.bo.custom.impl.StudentBOImpl;
 
@@ -28,11 +29,12 @@ public class BOFactory {
         switch (type) {
             case STUDENT:
                 return new StudentBOImpl();
-           case ROOM:
+            case ROOM:
                 return new RoomsBOImpl();
-             /*case RECEPTION:
-                return new RoomsBOImpl();*/
-            default: return null;
+            case RECEPTION:
+                return new ReservationBOImpl();
+            default:
+                return null;
         }
     }
 }
