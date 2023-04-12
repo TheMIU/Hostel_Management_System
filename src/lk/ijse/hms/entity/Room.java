@@ -18,7 +18,7 @@ public class Room {
     private String key_money;
     private int qty;
 
-    @OneToMany (mappedBy = "room" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @OneToMany (mappedBy = "room" ,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reservation> reservationList = new ArrayList<>();
 
     public Room(String room_type_id, String type, String key_money, int qty) {

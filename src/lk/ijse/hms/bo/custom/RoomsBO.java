@@ -17,7 +17,7 @@ public interface RoomsBO extends SuperBO {
 
     ArrayList<RoomsDTO> getRoomsData();
 
-    String getCurrentID();
+    //String getCurrentID();
 
     Boolean updateRoom(RoomsDTO roomsDTO);
 }

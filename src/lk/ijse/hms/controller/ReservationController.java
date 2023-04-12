@@ -26,6 +26,7 @@ import lk.ijse.hms.util.Routes;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ReservationController {
 
@@ -330,9 +331,26 @@ public class ReservationController {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Deleted Selected ?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.YES) {
+            String idText = txtResID.getText();
 
+            ReservationDTO reservationDTO = new ReservationDTO();
+            reservationDTO.setRes_id(idText);
+
+            Boolean isDeleted = reservationBO.deleteReservation(reservationDTO);
+
+            if (isDeleted) {
+                new Alert(Alert.AlertType.INFORMATION, " Deleted ! ").show();
+                loadReservationTable("");
+                newReservationPane.setDisable(true);
+                reservationDetailsPane.setDisable(false);
+            } else {
+                new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+            }
+        }
     }
-
 
     @FXML
     void btnReserveOnAction(ActionEvent event) {

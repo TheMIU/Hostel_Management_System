@@ -72,7 +72,6 @@ public class RoomsController {
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
 
         makeEditableTxtField(false);
-        txtRoomTypeID.setEditable(false);
         btnDelete.setDisable(true);
         btnCancel.setDisable(true);
         btnSave.setDisable(true);
@@ -116,7 +115,7 @@ public class RoomsController {
     }
 
     private void makeEditableTxtField(boolean b) {
-        txtRoomTypeID.setEditable(b);
+        //txtRoomTypeID.setEditable(b);
         txtType.setEditable(b);
         txtKeyMoney.setEditable(b);
         txtQty.setEditable(b);
@@ -210,9 +209,9 @@ public class RoomsController {
         btnCancel.setDisable(false);
         btnSave.setDisable(false);
         btnSave.setText("Save");
-        String nextID = generateNextID(roomsBO.getCurrentID());
-        txtRoomTypeID.setText(nextID);
-        txtType.requestFocus();
+        //String nextID = generateNextID(roomsBO.getCurrentID());
+        //txtRoomTypeID.setText(nextID);
+        txtRoomTypeID.requestFocus();
     }
 
     private void clearFields() {
@@ -222,7 +221,7 @@ public class RoomsController {
         txtQty.clear();
     }
 
-    private String generateNextID(String currentID) {
+    /*private String generateNextID(String currentID) {
         if (currentID != null) {
             String[] ids = currentID.split("R0");
             int id = Integer.parseInt(ids[1]);
@@ -231,7 +230,7 @@ public class RoomsController {
             return "R0" + id;
         }
         return "R01";
-    }
+    }*/
 
     public void btnCancelOnAction(ActionEvent actionEvent) throws IOException {
         clearFields();

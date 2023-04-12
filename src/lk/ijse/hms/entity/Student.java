@@ -24,7 +24,7 @@ public class Student {
     private String dob;
     private String gender;
 
-    @OneToMany (mappedBy = "student" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @OneToMany (mappedBy = "student" ,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reservation> reservationList = new ArrayList<>();
 
     public Student(String id, String name, String address, String contact_no, String dob, String gender) {

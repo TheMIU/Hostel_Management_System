@@ -25,7 +25,20 @@ public class ReservationDAOImpl implements ReservationDAO {
 
     @Override
     public boolean delete(String id) {
-        return false;
+        Session session = SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Reservation reservation = session.load(Reservation.class, id);
+            session.delete(reservation);
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (Exception ex) {
+            transaction.rollback();
+            session.close();
+            return false;
+        }
     }
 
     @Override
@@ -46,12 +59,11 @@ public class ReservationDAOImpl implements ReservationDAO {
 
             transaction.commit();
             session.close();
-
             return true;
+
         } catch (Exception ex) {
             transaction.rollback();
             session.close();
-            System.out.println(ex.toString());
             return false;
         }
     }
@@ -73,7 +85,7 @@ public class ReservationDAOImpl implements ReservationDAO {
             sqlQuery.addEntity(Reservation.class);
 
             List<Reservation> reservationList = sqlQuery.list();
-            String resID = "";
+            String resID = null;
             for(Reservation reservation : reservationList){
                 resID = reservation.getRes_id();
             }

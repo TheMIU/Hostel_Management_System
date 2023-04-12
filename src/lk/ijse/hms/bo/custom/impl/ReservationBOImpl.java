@@ -94,4 +94,9 @@ public class ReservationBOImpl implements ReservationBO {
 
         return reservationDAO.add(reservation);
     }
+
+    @Override
+    public Boolean deleteReservation(ReservationDTO reservationDTO) {
+        return reservationDAO.delete(reservationDTO.getRes_id());
+    }
 }

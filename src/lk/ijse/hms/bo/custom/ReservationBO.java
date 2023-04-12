@@ -23,4 +23,6 @@ public interface ReservationBO extends SuperBO {
     ArrayList<CustomDTO> getReservationData();
 
     boolean addReservation(ReservationDTO reservationDTO);
+
+    Boolean deleteReservation(ReservationDTO reservationDTO);
 }
