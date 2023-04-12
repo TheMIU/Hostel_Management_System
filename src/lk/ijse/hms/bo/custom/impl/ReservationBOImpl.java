@@ -96,7 +96,20 @@ public class ReservationBOImpl implements ReservationBO {
     }
 
     @Override
-    public Boolean deleteReservation(ReservationDTO reservationDTO) {
+    public boolean deleteReservation(ReservationDTO reservationDTO) {
         return reservationDAO.delete(reservationDTO.getRes_id());
+    }
+
+    @Override
+    public boolean updateReservation(ReservationDTO reservationDTO) {
+        Reservation reservation = new Reservation();
+
+        reservation.setRes_id(reservationDTO.getRes_id());
+        reservation.setRes_date(reservationDTO.getRes_date().toString());
+        reservation.setStatus(reservationDTO.getStatus());
+        reservation.setRoom(reservationDTO.getRoom());
+        reservation.setStudent(reservationDTO.getStudent());
+
+        return reservationDAO.update(reservation);
     }
 }

@@ -82,18 +82,19 @@ public class StudentDAOImpl implements StudentDAO{
           sqlQuery.addEntity(Student.class);
 
           List <Student> studentList = sqlQuery.list();
+          String id = null;
           for(Student student : studentList){
-              return student.getId();
+              id = student.getId();
           }
           transaction.commit();
           session.close();
+          return id;
 
       }catch (Exception e){
           transaction.commit();
           session.close();
           return null;
       }
-        return null;
     }
 
     @Override

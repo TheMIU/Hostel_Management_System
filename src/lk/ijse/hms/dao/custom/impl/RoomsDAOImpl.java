@@ -81,18 +81,19 @@ public class RoomsDAOImpl implements RoomsDAO {
             sqlQuery.addEntity(Room.class);
 
             List <Room> roomList = sqlQuery.list();
+            String id = null;
             for(Room room : roomList){
-                return room.getRoom_type_id();
+                id = room.getRoom_type_id();
             }
             transaction.commit();
             session.close();
+            return id;
 
         }catch (Exception e){
             transaction.commit();
             session.close();
             return null;
         }
-        return null;
     }
 
     @Override

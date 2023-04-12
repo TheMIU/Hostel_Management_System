@@ -70,7 +70,29 @@ public class ReservationDAOImpl implements ReservationDAO {
 
     @Override
     public boolean update(Reservation entity) {
-        return false;
+        Session session = SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Room room = entity.getRoom();
+            Student student = entity.getStudent();
+
+            room.getReservationList().add(entity);
+            student.getReservationList().add(entity);
+
+            session.saveOrUpdate(entity);
+            session.saveOrUpdate(entity.getRoom().getRoom_type_id(), room);
+            session.saveOrUpdate(entity.getStudent().getId(), student);
+
+            transaction.commit();
+            session.close();
+            return true;
+
+        } catch (Exception ex) {
+            transaction.rollback();
+            session.close();
+            return false;
+        }
     }
 
     @Override

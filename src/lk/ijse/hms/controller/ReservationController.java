@@ -3,6 +3,8 @@ package lk.ijse.hms.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -200,11 +202,31 @@ public class ReservationController {
                 txtRoomID.setText(newValue.getRoom_type_id());
                 txtSearchStudent.setText(newValue.getId());
                 txtStudentID.setText(newValue.getId());
+                dateDate.setValue(LocalDate.parse(newValue.getRes_date().toString()));
             }
         });
 
         txtSearchReservation.textProperty().addListener((observable, oldValue, newValue) -> {
             loadReservationTable(newValue);
+        });
+
+        //---Radio buttons
+        FilterPayment.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> ob, Toggle o, Toggle n) {
+                RadioButton rb = (RadioButton) FilterPayment.getSelectedToggle();
+
+                switch (rb.getText()) {
+                    case "All":
+                        loadReservationTable("");
+                        break;
+                    case "Paid":
+                        loadReservationTable("Paid");
+                        break;
+                    case "Pending":
+                        loadReservationTable("Pending");
+                        break;
+                }
+            }
         });
 
         loadRoomTable("");
@@ -217,7 +239,8 @@ public class ReservationController {
 
         ArrayList<CustomDTO> customDTOS = reservationBO.getReservationData();
         for (CustomDTO c : customDTOS) {
-            if (c.getRes_id().contains(SearchID) ||
+            if (c.getStatus().contains(SearchID) ||
+                    c.getRes_id().contains(SearchID) ||
                     c.getRoom_type_id().contains(SearchID) ||
                     c.getType().contains(SearchID)) {
 
@@ -298,6 +321,7 @@ public class ReservationController {
 
         btnReserve.setText("Reserve");
 
+        rbAll.setSelected(true);
     }
 
     private String generateNextID(String currentID) {
@@ -327,6 +351,9 @@ public class ReservationController {
     void btnEditOnAction(ActionEvent event) {
         newReservationPane.setDisable(false);
         reservationDetailsPane.setDisable(true);
+        btnReserve.setText("Update");
+        btnDelete.setDisable(false);
+        rbAll.setSelected(true);
     }
 
     @FXML
@@ -354,6 +381,7 @@ public class ReservationController {
 
     @FXML
     void btnReserveOnAction(ActionEvent event) {
+        /** create new dto & assign UI values to it */
         ReservationDTO reservationDTO = new ReservationDTO();
 
         reservationDTO.setRes_id(txtResID.getText());
@@ -376,15 +404,28 @@ public class ReservationController {
                         studentDTO.getDob(),
                         studentDTO.getGender()));
 
-        boolean isAdded = reservationBO.addReservation(reservationDTO);
-        if (isAdded) {
-            new Alert(Alert.AlertType.INFORMATION, " Added ! ").show();
-            loadReservationTable("");
-            newReservationPane.setDisable(true);
-            reservationDetailsPane.setDisable(false);
+        if (btnReserve.getText().equals("Reserve")) {
+            boolean isAdded = reservationBO.addReservation(reservationDTO);
+            if (isAdded) {
+                new Alert(Alert.AlertType.INFORMATION, " Added ! ").show();
+                loadReservationTable("");
+                newReservationPane.setDisable(true);
+                reservationDetailsPane.setDisable(false);
 
+            } else {
+                new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+            }
         } else {
-            new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+            boolean isAdded = reservationBO.updateReservation(reservationDTO);
+            if (isAdded) {
+                new Alert(Alert.AlertType.INFORMATION, " Updated ! ").show();
+                loadReservationTable("");
+                newReservationPane.setDisable(true);
+                reservationDetailsPane.setDisable(false);
+
+            } else {
+                new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+            }
         }
     }
 }
