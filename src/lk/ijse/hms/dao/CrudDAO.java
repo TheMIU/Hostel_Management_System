@@ -1,6 +1,5 @@
 package lk.ijse.hms.dao;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface CrudDAO<T> extends SuperDAO{
@@ -8,7 +7,7 @@ public interface CrudDAO<T> extends SuperDAO{
 
     public ArrayList<T> getData();
 
-    public Boolean delete(String id);
+    public boolean delete(String id);
 
     public boolean add(T entity);
 

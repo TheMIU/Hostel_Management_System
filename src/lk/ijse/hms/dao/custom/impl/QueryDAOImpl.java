@@ -30,7 +30,7 @@ public class QueryDAOImpl implements QueryDAO {
                 "FROM reservation " +
                 "INNER JOIN student s on reservation.student_id = s.id " +
                 "INNER JOIN room r on reservation.room_type_id = r.room_type_id " +
-                "ORDER BY CAST(SUBSTRING(res_id, 2) AS UNSIGNED)";
+                "ORDER BY CAST(SUBSTRING(res_id, 3) AS UNSIGNED)";
         NativeQuery sqlQuery = session.createSQLQuery(sql);
 
 

@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.hms.bo.BOFactory;
@@ -18,8 +15,11 @@ import lk.ijse.hms.bo.custom.ReservationBO;
 import lk.ijse.hms.bo.custom.RoomsBO;
 import lk.ijse.hms.bo.custom.StudentBO;
 import lk.ijse.hms.dto.CustomDTO;
+import lk.ijse.hms.dto.ReservationDTO;
 import lk.ijse.hms.dto.RoomsDTO;
 import lk.ijse.hms.dto.StudentDTO;
+import lk.ijse.hms.entity.Room;
+import lk.ijse.hms.entity.Student;
 import lk.ijse.hms.util.Navigation;
 import lk.ijse.hms.util.Routes;
 
@@ -143,6 +143,9 @@ public class ReservationController {
 
     ReservationBO reservationBO = (ReservationBO) BOFactory.getBoFactory().getBO(BOFactory.Type.RECEPTION);
 
+    StudentDTO studentDTO;
+    RoomsDTO roomsDTO;
+
     public void initialize() {
         newReservationPane.setDisable(true);
         reservationDetailsPane.setDisable(false);
@@ -160,6 +163,7 @@ public class ReservationController {
         tblRooms.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 txtRoomID.setText(newValue.getRoom_type_id());
+                roomsDTO = newValue;
             }
         });
 
@@ -170,6 +174,7 @@ public class ReservationController {
         tblStudent.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 txtStudentID.setText(newValue.getId());
+                studentDTO = newValue;
             }
         });
 
@@ -211,7 +216,7 @@ public class ReservationController {
 
         ArrayList<CustomDTO> customDTOS = reservationBO.getReservationData();
         for (CustomDTO c : customDTOS) {
-            if ( c.getRes_id().contains(SearchID) ||
+            if (c.getRes_id().contains(SearchID) ||
                     c.getRoom_type_id().contains(SearchID) ||
                     c.getType().contains(SearchID)) {
 
@@ -311,7 +316,7 @@ public class ReservationController {
         reservationDetailsPane.setDisable(false);
 
         txtResID.clear();
-        ;
+
         txtStudentID.clear();
         txtRoomID.clear();
     }
@@ -331,6 +336,37 @@ public class ReservationController {
 
     @FXML
     void btnReserveOnAction(ActionEvent event) {
+        ReservationDTO reservationDTO = new ReservationDTO();
 
+        reservationDTO.setRes_id(txtResID.getText());
+        reservationDTO.setRes_date(dateDate.getValue());
+
+        RadioButton rb = (RadioButton) PaymentStatus.getSelectedToggle();
+        reservationDTO.setStatus(rb.getText());
+
+        reservationDTO.setRoom(new Room
+                (roomsDTO.getRoom_type_id(),
+                        roomsDTO.getType(),
+                        roomsDTO.getKey_money(),
+                        roomsDTO.getQty()));
+
+        reservationDTO.setStudent(new Student
+                (studentDTO.getId(),
+                        studentDTO.getName(),
+                        studentDTO.getAddress(),
+                        studentDTO.getContact_no(),
+                        studentDTO.getDob(),
+                        studentDTO.getGender()));
+
+        boolean isAdded = reservationBO.addReservation(reservationDTO);
+        if (isAdded) {
+            new Alert(Alert.AlertType.INFORMATION, " Added ! ").show();
+            loadReservationTable("");
+            newReservationPane.setDisable(true);
+            reservationDetailsPane.setDisable(false);
+
+        } else {
+            new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+        }
     }
 }

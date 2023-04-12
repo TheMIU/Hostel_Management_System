@@ -12,9 +12,11 @@ import lk.ijse.hms.dao.custom.ReservationDAO;
 import lk.ijse.hms.dao.custom.RoomsDAO;
 import lk.ijse.hms.dao.custom.StudentDAO;
 import lk.ijse.hms.dto.CustomDTO;
+import lk.ijse.hms.dto.ReservationDTO;
 import lk.ijse.hms.dto.RoomsDTO;
 import lk.ijse.hms.dto.StudentDTO;
 import lk.ijse.hms.entity.CustomEntity;
+import lk.ijse.hms.entity.Reservation;
 import lk.ijse.hms.entity.Room;
 import lk.ijse.hms.entity.Student;
 
@@ -78,5 +80,18 @@ public class ReservationBOImpl implements ReservationBO {
                     c.getStatus()));
         }
         return customDTOS;
+    }
+
+    @Override
+    public boolean addReservation(ReservationDTO reservationDTO) {
+        Reservation reservation = new Reservation();
+
+        reservation.setRes_id(reservationDTO.getRes_id());
+        reservation.setRes_date(reservationDTO.getRes_date().toString());
+        reservation.setStatus(reservationDTO.getStatus());
+        reservation.setRoom(reservationDTO.getRoom());
+        reservation.setStudent(reservationDTO.getStudent());
+
+        return reservationDAO.add(reservation);
     }
 }

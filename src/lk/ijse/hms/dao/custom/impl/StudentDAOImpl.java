@@ -52,7 +52,7 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    public Boolean delete(String id) {
+    public boolean delete(String id) {
         Session session = SessionFactoryConfig.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 

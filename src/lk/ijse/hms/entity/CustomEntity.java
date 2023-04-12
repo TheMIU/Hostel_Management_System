@@ -5,16 +5,14 @@
 
 package lk.ijse.hms.entity;
 
-import lombok.Data;
-import org.hibernate.annotations.Table;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class CustomEntity {
     // reservation
     private String res_id;

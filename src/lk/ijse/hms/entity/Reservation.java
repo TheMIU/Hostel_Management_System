@@ -1,13 +1,12 @@
 package lk.ijse.hms.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -20,10 +19,10 @@ public class Reservation {
     private String status;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id", insertable = false)
+    @JoinColumn(name = "student_id")
     private Student student;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "room_type_id", insertable = false)
+    @JoinColumn(name = "room_type_id")
     private Room room;
 }

@@ -38,7 +38,7 @@ public class SessionFactoryConfig {
                 sessionFactoryConfig;
     }
 
-    public Session getSession(){
+    public final Session getSession(){
         return sessionFactory.openSession();
     }
 

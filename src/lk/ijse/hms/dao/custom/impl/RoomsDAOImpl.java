@@ -7,7 +7,6 @@ package lk.ijse.hms.dao.custom.impl;
 
 import lk.ijse.hms.dao.custom.RoomsDAO;
 import lk.ijse.hms.entity.Room;
-import lk.ijse.hms.entity.Student;
 import lk.ijse.hms.util.SessionFactoryConfig;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -53,7 +52,7 @@ public class RoomsDAOImpl implements RoomsDAO {
     }
 
     @Override
-    public Boolean delete(String id) {
+    public boolean delete(String id) {
         Session session = SessionFactoryConfig.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 

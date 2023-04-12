@@ -8,6 +8,7 @@ package lk.ijse.hms.dao.custom.impl;
 import lk.ijse.hms.dao.custom.ReservationDAO;
 import lk.ijse.hms.entity.Reservation;
 import lk.ijse.hms.entity.Room;
+import lk.ijse.hms.entity.Student;
 import lk.ijse.hms.util.SessionFactoryConfig;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -23,13 +24,36 @@ public class ReservationDAOImpl implements ReservationDAO {
     }
 
     @Override
-    public Boolean delete(String id) {
-        return null;
+    public boolean delete(String id) {
+        return false;
     }
 
     @Override
     public boolean add(Reservation entity) {
-        return false;
+        Session session = SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Room room = entity.getRoom();
+            Student student = entity.getStudent();
+
+            room.getReservationList().add(entity);
+            student.getReservationList().add(entity);
+
+            session.saveOrUpdate(entity);
+            session.saveOrUpdate(entity.getRoom().getRoom_type_id(), room);
+            session.saveOrUpdate(entity.getStudent().getId(), student);
+
+            transaction.commit();
+            session.close();
+
+            return true;
+        } catch (Exception ex) {
+            transaction.rollback();
+            session.close();
+            System.out.println(ex.toString());
+            return false;
+        }
     }
 
     @Override
@@ -49,17 +73,18 @@ public class ReservationDAOImpl implements ReservationDAO {
             sqlQuery.addEntity(Reservation.class);
 
             List<Reservation> reservationList = sqlQuery.list();
+            String resID = "";
             for(Reservation reservation : reservationList){
-                return reservation.getRes_id();
+                resID = reservation.getRes_id();
             }
             transaction.commit();
             session.close();
+            return resID;
 
         }catch (Exception e){
             transaction.commit();
             session.close();
             return null;
         }
-        return null;
     }
 }

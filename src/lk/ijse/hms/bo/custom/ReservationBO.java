@@ -7,6 +7,7 @@ package lk.ijse.hms.bo.custom;
 
 import lk.ijse.hms.bo.SuperBO;
 import lk.ijse.hms.dto.CustomDTO;
+import lk.ijse.hms.dto.ReservationDTO;
 import lk.ijse.hms.dto.RoomsDTO;
 import lk.ijse.hms.dto.StudentDTO;
 
@@ -20,4 +21,6 @@ public interface ReservationBO extends SuperBO {
     ArrayList<StudentDTO> getStudentData();
 
     ArrayList<CustomDTO> getReservationData();
+
+    boolean addReservation(ReservationDTO reservationDTO);
 }
