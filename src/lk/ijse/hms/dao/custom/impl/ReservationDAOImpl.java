@@ -30,7 +30,15 @@ public class ReservationDAOImpl implements ReservationDAO {
 
         try {
             Reservation reservation = session.load(Reservation.class, id);
+
+            // +1 room to available room count
+            Room room = reservation.getRoom();
+            int qty = room.getQty();
+            room.setQty(qty+1);
+
+            session.update(room);
             session.delete(reservation);
+
             transaction.commit();
             session.close();
             return true;
@@ -47,11 +55,17 @@ public class ReservationDAOImpl implements ReservationDAO {
         Transaction transaction = session.beginTransaction();
 
         try {
+            // get room entity object from reservation entity
             Room room = entity.getRoom();
             Student student = entity.getStudent();
 
+            // add entity objects to Reservation list
             room.getReservationList().add(entity);
             student.getReservationList().add(entity);
+
+            // -1 room from available room count
+            int qty = room.getQty();
+            room.setQty(qty-1);
 
             session.saveOrUpdate(entity);
             session.saveOrUpdate(entity.getRoom().getRoom_type_id(), room);

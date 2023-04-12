@@ -284,15 +284,17 @@ public class ReservationController {
 
         ArrayList<RoomsDTO> roomsDTOS = reservationBO.getRoomsData();
         for (RoomsDTO std : roomsDTOS) {
-            if (std.getRoom_type_id().contains(SearchID) ||
-                    std.getKey_money().contains(SearchID) ||
-                    std.getType().contains(SearchID)) {
-                RoomsDTO roomsDTO = new RoomsDTO(
-                        std.getRoom_type_id(),
-                        std.getType(),
-                        std.getKey_money(),
-                        std.getQty());
-                list.add(roomsDTO);
+            if (std.getQty() > 0) {
+                if (std.getRoom_type_id().contains(SearchID) ||
+                        std.getKey_money().contains(SearchID) ||
+                        std.getType().contains(SearchID)) {
+                    RoomsDTO roomsDTO = new RoomsDTO(
+                            std.getRoom_type_id(),
+                            std.getType(),
+                            std.getKey_money(),
+                            std.getQty());
+                    list.add(roomsDTO);
+                }
             }
         }
         tblRooms.setItems(list);
@@ -366,11 +368,15 @@ public class ReservationController {
             ReservationDTO reservationDTO = new ReservationDTO();
             reservationDTO.setRes_id(idText);
 
-            Boolean isDeleted = reservationBO.deleteReservation(reservationDTO);
+            boolean isDeleted = reservationBO.deleteReservation(reservationDTO);
 
             if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, " Deleted ! ").show();
+
                 loadReservationTable("");
+                loadRoomTable("");
+                loadStudentTable("");
+
                 newReservationPane.setDisable(true);
                 reservationDetailsPane.setDisable(false);
             } else {
@@ -381,7 +387,7 @@ public class ReservationController {
 
     @FXML
     void btnReserveOnAction(ActionEvent event) {
-        /** create new dto & assign UI values to it */
+        /* create new dto & assign UI values to it */
         ReservationDTO reservationDTO = new ReservationDTO();
 
         reservationDTO.setRes_id(txtResID.getText());
@@ -408,7 +414,11 @@ public class ReservationController {
             boolean isAdded = reservationBO.addReservation(reservationDTO);
             if (isAdded) {
                 new Alert(Alert.AlertType.INFORMATION, " Added ! ").show();
+
                 loadReservationTable("");
+                loadRoomTable("");
+                loadStudentTable("");
+
                 newReservationPane.setDisable(true);
                 reservationDetailsPane.setDisable(false);
 
@@ -419,7 +429,11 @@ public class ReservationController {
             boolean isAdded = reservationBO.updateReservation(reservationDTO);
             if (isAdded) {
                 new Alert(Alert.AlertType.INFORMATION, " Updated ! ").show();
+
                 loadReservationTable("");
+                loadRoomTable("");
+                loadStudentTable("");
+
                 newReservationPane.setDisable(true);
                 reservationDetailsPane.setDisable(false);
 
