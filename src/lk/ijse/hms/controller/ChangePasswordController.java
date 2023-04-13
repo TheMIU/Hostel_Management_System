@@ -113,7 +113,7 @@ public class ChangePasswordController {
                 newPassword.clear();
 
                 Navigation.navigate(Routes.DASHBOARD,pane);
-                
+
             }else {
                 new Alert(Alert.AlertType.ERROR,"Wrong Inputs \nTry again !").show();
             }

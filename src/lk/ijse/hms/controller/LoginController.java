@@ -13,6 +13,10 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
+import lk.ijse.hms.bo.BOFactory;
+import lk.ijse.hms.bo.custom.RoomsBO;
+import lk.ijse.hms.bo.custom.UserBO;
+import lk.ijse.hms.dto.UserDTO;
 import lk.ijse.hms.util.Navigation;
 import lk.ijse.hms.util.Routes;
 
@@ -33,6 +37,8 @@ public class LoginController {
 
     @FXML
     private JFXTextField txtUserName;
+
+    UserBO userBO =(UserBO) BOFactory.getBoFactory().getBO(BOFactory.Type.USER);
 
     @FXML
     void forgotClickOnAction(ActionEvent event) {
@@ -67,16 +73,16 @@ public class LoginController {
         Shake shakeUserName = new Shake(txtUserName);
         Shake shakePassword = new Shake(txtPassword);
 
-        if(txtPassword.getText().equals(currentPassword()) && txtUserName.getText().equals(getUser())){
+        if( isCorrectPassword() && isCorrectUserName()){
             txtUserName.setFocusColor(Paint.valueOf("BLUE"));
             Navigation.navigate(Routes.DASHBOARD, pane);
             new FadeIn(pane).setSpeed(3).play();
 
-        }else if (txtPassword.getText().equals(currentPassword()) && !txtUserName.getText().equals(getUser())) {
+        }else if (isCorrectPassword() && !isCorrectUserName()) {
             txtUserName.requestFocus();
             txtUserName.setFocusColor(Paint.valueOf("RED"));
             shakeUserName.play();
-        } else if (!txtPassword.getText().equals(currentPassword()) && txtUserName.getText().equals(getUser())) {
+        } else if (!isCorrectPassword() && isCorrectUserName()) {
             txtPassword.requestFocus();
             txtPassword.setFocusColor(Paint.valueOf("RED"));
             shakePassword.play();
@@ -85,15 +91,24 @@ public class LoginController {
             txtPassword.clear();
             txtUserName.clear();
         }
-
     }
 
-    private String getUser() {
-        return "admin";
+    private boolean isCorrectUserName() {
+        String user = userBO.getUser("1");
+        if(user == null){
+            new Alert(Alert.AlertType.ERROR," Database Error !").show();
+            return false;
+        }
+        return txtUserName.getText().equals(user);
     }
 
-    private String currentPassword() {
-        return "123";
+    private boolean isCorrectPassword() {
+        String password = userBO.getPassword("1");
+        if(password == null){
+            new Alert(Alert.AlertType.ERROR," Database Error !").show();
+            return false;
+        }
+        return txtPassword.getText().equals(password);
     }
 
 

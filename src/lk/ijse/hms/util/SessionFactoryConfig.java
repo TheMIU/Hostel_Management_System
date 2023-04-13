@@ -1,9 +1,6 @@
 package lk.ijse.hms.util;
 
-import lk.ijse.hms.entity.CustomEntity;
-import lk.ijse.hms.entity.Reservation;
-import lk.ijse.hms.entity.Room;
-import lk.ijse.hms.entity.Student;
+import lk.ijse.hms.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -20,6 +17,7 @@ public class SessionFactoryConfig {
         configuration.addAnnotatedClass(Student.class);
         configuration.addAnnotatedClass(Room.class);
         configuration.addAnnotatedClass(Reservation.class);
+        configuration.addAnnotatedClass(User.class);
 
         Properties properties = new Properties();
         try {

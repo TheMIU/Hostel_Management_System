@@ -8,6 +8,7 @@ package lk.ijse.hms.bo;
 import lk.ijse.hms.bo.custom.impl.ReservationBOImpl;
 import lk.ijse.hms.bo.custom.impl.RoomsBOImpl;
 import lk.ijse.hms.bo.custom.impl.StudentBOImpl;
+import lk.ijse.hms.bo.custom.impl.UserBOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -22,7 +23,8 @@ public class BOFactory {
     public enum Type {
         STUDENT,
         ROOM,
-        RECEPTION
+        RECEPTION,
+        USER
     }
 
     public SuperBO getBO(Type type) {
@@ -33,6 +35,8 @@ public class BOFactory {
                 return new RoomsBOImpl();
             case RECEPTION:
                 return new ReservationBOImpl();
+            case USER:
+                return new UserBOImpl();
             default:
                 return null;
         }
