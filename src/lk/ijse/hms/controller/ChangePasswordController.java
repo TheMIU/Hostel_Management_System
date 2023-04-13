@@ -20,6 +20,8 @@ import lk.ijse.hms.util.Routes;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ChangePasswordController {
     @FXML
@@ -110,7 +112,7 @@ public class ChangePasswordController {
         String newUserName = newUsername.getText();
         String newPw = newPassword.getText();
 
-        if (checkValidity(newUserName,newPw)) {
+        if (isValidUserName() && isValidPassword()) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Confirm Update ?", ButtonType.YES, ButtonType.NO);
             Optional<ButtonType> result = alert.showAndWait();
 
@@ -139,8 +141,35 @@ public class ChangePasswordController {
         }
     }
 
-    private boolean checkValidity(String newUserName, String newPw) {
-        return true;
+    private boolean isValidUserName() {
+        Pattern userNamePattern = Pattern.compile("^[a-zA-Z]{4,}$");
+        Matcher userNameMatcher = userNamePattern.matcher(newUsername.getText());
+
+        boolean userNameIsMatches = userNameMatcher.matches();
+        if (userNameIsMatches) {
+            return true;
+        } else {
+            Shake shakeUserName = new Shake(newUsername);
+            newUsername.requestFocus();
+            shakeUserName.play();
+            return false;
+            /*Shake shakePassword = new Shake(currentPassword);*/
+        }
+    }
+
+    private boolean isValidPassword() {
+        Pattern passwordPattern = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+        Matcher passwordMatcher = passwordPattern.matcher(newPassword.getText());
+
+        boolean passwordIsMatches = passwordMatcher.matches();
+        if (passwordIsMatches) {
+            return true;
+        } else {
+            Shake shakePW = new Shake(newPassword);
+            newPassword.requestFocus();
+            shakePW.play();
+            return false;
+        }
     }
 
     @FXML
