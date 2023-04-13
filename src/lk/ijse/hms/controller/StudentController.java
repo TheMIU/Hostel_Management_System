@@ -1,5 +1,6 @@
 package lk.ijse.hms.controller;
 
+import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -20,6 +21,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StudentController {
     public AnchorPane pane;
@@ -84,6 +87,8 @@ public class StudentController {
     StudentBO studentBO = (StudentBO) BOFactory.getBoFactory().getBO(BOFactory.Type.STUDENT);
 
     public void initialize() {
+        txtID.setEditable(false);
+
         colID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -139,7 +144,6 @@ public class StudentController {
         txtName.setEditable(b);
         txtAddress.setEditable(b);
         txtContact.setEditable(b);
-        txtID.setEditable(b);
         dateDOB.setEditable(b);
     }
 
@@ -166,33 +170,82 @@ public class StudentController {
             RadioButton rb = (RadioButton) gender.getSelectedToggle();
             String genderText = rb.getText();
 
-            if (btnSave.getText().equals("Save")) {
-                StudentDTO studentDTO = new StudentDTO(idText, nameText, addressText, contactText, dobText, genderText);
-                Boolean isAdded = studentBO.addStudent(studentDTO);
+            // regex
+            if (isValidName() && isValidAddress() && isValidContact()) {
+                if (btnSave.getText().equals("Save")) {
+                    StudentDTO studentDTO = new StudentDTO(idText, nameText, addressText, contactText, dobText, genderText);
+                    Boolean isAdded = studentBO.addStudent(studentDTO);
 
-                if (isAdded) {
-                    new Alert(Alert.AlertType.INFORMATION, " Student Added ! ").show();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                    if (isAdded) {
+                        new Alert(Alert.AlertType.INFORMATION, " Student Added ! ").show();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                    }
                 }
-            }
 
-            if (btnSave.getText().equals("Update")) {
-                StudentDTO studentDTO = new StudentDTO(idText, nameText, addressText, contactText, dobText, genderText);
-                Boolean isUpdated = studentBO.updateStudent(studentDTO);
+                if (btnSave.getText().equals("Update")) {
+                    StudentDTO studentDTO = new StudentDTO(idText, nameText, addressText, contactText, dobText, genderText);
+                    Boolean isUpdated = studentBO.updateStudent(studentDTO);
 
-                if (isUpdated) {
-                    new Alert(Alert.AlertType.INFORMATION, " Student Updated ! ").show();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                    if (isUpdated) {
+                        new Alert(Alert.AlertType.INFORMATION, " Student Updated ! ").show();
+                        clearFields();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                        clearFields();
+                    }
                 }
-            }
-            loadStudentData("");
+                loadStudentData("");
 
-        } else {
-            new Alert(Alert.AlertType.WARNING, "Fill data !").show();
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Fill data !").show();
+            }
         }
-        clearFields();
+    }
+
+    private boolean isValidContact() {
+        Pattern pattern = Pattern.compile("^(?:7|0|(?:\\+94))[0-9]{9,10}$");
+        Matcher matcher = pattern.matcher(txtContact.getText());
+
+        boolean isMatches = matcher.matches();
+        if (isMatches) {
+            return true;
+        } else {
+            Shake shakeUserName = new Shake(txtContact);
+            txtContact.requestFocus();
+            shakeUserName.play();
+            return false;
+        }
+    }
+
+    private boolean isValidAddress() {
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9]{3,}$");
+        Matcher matcher = pattern.matcher(txtAddress.getText());
+
+        boolean isMatches = matcher.matches();
+        if (isMatches) {
+            return true;
+        } else {
+            Shake shakeUserName = new Shake(txtAddress);
+            txtAddress.requestFocus();
+            shakeUserName.play();
+            return false;
+        }
+    }
+
+    private boolean isValidName() {
+        Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}$");
+        Matcher matcher = pattern.matcher(txtName.getText());
+
+        boolean isMatches = matcher.matches();
+        if (isMatches) {
+            return true;
+        } else {
+            Shake shakeUserName = new Shake(txtName);
+            txtName.requestFocus();
+            shakeUserName.play();
+            return false;
+        }
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {

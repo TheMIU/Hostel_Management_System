@@ -150,6 +150,9 @@ public class ReservationController {
     public void initialize() {
         newReservationPane.setDisable(true);
         reservationDetailsPane.setDisable(false);
+        txtResID.setEditable(false);
+        txtRoomID.setEditable(false);
+        txtStudentID.setEditable(false);
 
         // room table
         colRoomTypeID.setCellValueFactory(new PropertyValueFactory<>("room_type_id"));

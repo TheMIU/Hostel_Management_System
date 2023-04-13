@@ -5,6 +5,7 @@
 
 package lk.ijse.hms.controller;
 
+import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -23,13 +24,15 @@ import lk.ijse.hms.util.Routes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RoomsController {
     @FXML
     private AnchorPane pane;
 
     @FXML
-    private  JFXButton btnDelete;
+    private JFXButton btnDelete;
     @FXML
     private JFXButton btnCancel;
     @FXML
@@ -135,33 +138,96 @@ public class RoomsController {
             String keyMoneyText = txtKeyMoney.getText();
             int qtyText = Integer.parseInt(txtQty.getText());
 
-            if (btnSave.getText().equals("Save")) {
-                RoomsDTO roomsDTO = new RoomsDTO(roomTypeIDText,typeText,keyMoneyText,qtyText);
-                Boolean isAdded = roomsBO.addRoom(roomsDTO);
+            if (isValidRoomTypeID() && isValidType() && isValidKeyMoney() && isValidQTY()) {
+                if (btnSave.getText().equals("Save")) {
+                    RoomsDTO roomsDTO = new RoomsDTO(roomTypeIDText, typeText, keyMoneyText, qtyText);
+                    Boolean isAdded = roomsBO.addRoom(roomsDTO);
 
-                if (isAdded) {
-                    new Alert(Alert.AlertType.INFORMATION, " Room Added ! ").show();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                    if (isAdded) {
+                        new Alert(Alert.AlertType.INFORMATION, " Room Added ! ").show();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                    }
                 }
-            }
 
-            if (btnSave.getText().equals("Update")) {
-                RoomsDTO roomsDTO = new RoomsDTO(roomTypeIDText,typeText,keyMoneyText,qtyText);
-                Boolean isUpdated = roomsBO.updateRoom(roomsDTO);
+                if (btnSave.getText().equals("Update")) {
+                    RoomsDTO roomsDTO = new RoomsDTO(roomTypeIDText, typeText, keyMoneyText, qtyText);
+                    Boolean isUpdated = roomsBO.updateRoom(roomsDTO);
 
-                if (isUpdated) {
-                    new Alert(Alert.AlertType.INFORMATION, " Room Updated ! ").show();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                    if (isUpdated) {
+                        new Alert(Alert.AlertType.INFORMATION, " Room Updated ! ").show();
+                        clearFields();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, " Error ! ").show();
+                        clearFields();
+                    }
                 }
-            }
-            loadRoomData("");
+                loadRoomData("");
 
-        } else {
-            new Alert(Alert.AlertType.WARNING, "Fill data !").show();
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Fill data !").show();
+            }
         }
-        clearFields();
+    }
+
+    private boolean isValidQTY() {
+        Pattern pattern = Pattern.compile("^[0-9]{1,}$");
+        Matcher matcher = pattern.matcher(txtQty.getText());
+
+        boolean isMatches = matcher.matches();
+        if (isMatches) {
+            return true;
+        } else {
+            Shake shakeUserName = new Shake(txtQty);
+            txtQty.requestFocus();
+            shakeUserName.play();
+            return false;
+        }
+    }
+
+    private boolean isValidKeyMoney() {
+        Pattern pattern = Pattern.compile("^[0-9]{3,}$");
+        Matcher matcher = pattern.matcher(txtKeyMoney.getText());
+
+        boolean isMatches = matcher.matches();
+        if (isMatches) {
+            return true;
+        } else {
+            Shake shakeUserName = new Shake(txtKeyMoney);
+            txtKeyMoney.requestFocus();
+            shakeUserName.play();
+            return false;
+        }
+    }
+
+    private boolean isValidType() {
+        Pattern pattern = Pattern.compile("^(AC|Non-AC|None)$");
+        Matcher matcher = pattern.matcher(txtKeyMoney.getText());
+
+        boolean isMatches = matcher.matches();
+        if (isMatches) {
+            return true;
+        } else {
+            Shake shakeUserName = new Shake(txtKeyMoney);
+            txtKeyMoney.requestFocus();
+            shakeUserName.play();
+            return false;
+        }
+    }
+
+    private boolean isValidRoomTypeID() {
+        Pattern pattern = Pattern.compile("^(?:RM-)[0-9]{4}$");
+        Matcher matcher = pattern.matcher(txtKeyMoney.getText());
+
+        boolean isMatches = matcher.matches();
+        if (isMatches) {
+            return true;
+        } else {
+            Shake shakeUserName = new Shake(txtKeyMoney);
+            txtKeyMoney.requestFocus();
+            shakeUserName.play();
+            return false;
+        }
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
@@ -212,6 +278,7 @@ public class RoomsController {
         //String nextID = generateNextID(roomsBO.getCurrentID());
         //txtRoomTypeID.setText(nextID);
         txtRoomTypeID.requestFocus();
+        txtRoomTypeID.setText("RM-");
     }
 
     private void clearFields() {

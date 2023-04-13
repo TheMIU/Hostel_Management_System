@@ -153,7 +153,6 @@ public class ChangePasswordController {
             newUsername.requestFocus();
             shakeUserName.play();
             return false;
-            /*Shake shakePassword = new Shake(currentPassword);*/
         }
     }
 
