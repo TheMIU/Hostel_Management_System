@@ -346,7 +346,6 @@ public class ReservationController {
         txtRoomID.clear();
     }
 
-
     @FXML
     void btnEditOnAction(ActionEvent event) {
         newReservationPane.setDisable(false);
@@ -443,7 +442,6 @@ public class ReservationController {
                 } else {
                     new Alert(Alert.AlertType.ERROR, " Error ! ").show();
                 }
-
             }
         } else {
             new Alert(Alert.AlertType.WARNING, " Wrong Date ! ").show();
