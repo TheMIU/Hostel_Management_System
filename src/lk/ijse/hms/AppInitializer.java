@@ -17,7 +17,7 @@ public class AppInitializer extends Application {
     public void start(Stage primaryStage) throws IOException {
         // primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../../../resources/view/Login.fxml"))));
         //primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../../../resources/view/Student.fxml"))));
-        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../../../resources/view/Reservation.fxml"))));
+        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../../../resources/view/ChangePassword.fxml"))));
         primaryStage.show();
         primaryStage.setResizable(false);
         // primaryStage.setY(0);
