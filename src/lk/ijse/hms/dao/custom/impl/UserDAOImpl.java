@@ -75,4 +75,26 @@ public class UserDAOImpl implements UserDAO {
             return null;
         }
     }
+
+    @Override
+    public boolean updateUser_Pw(String newUserName, String newPw) {
+        Session session = SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            User user = session.get(User.class, "1");
+            user.setName(newUserName);
+            user.setPassword(newPw);
+            session.update(user);
+
+            transaction.commit();
+            session.close();
+            return true;
+
+        }catch (Exception ex){
+            transaction.rollback();
+            session.close();
+            return false;
+        }
+    }
 }

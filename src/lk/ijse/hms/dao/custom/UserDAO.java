@@ -12,4 +12,6 @@ public interface UserDAO extends CrudDAO<User> {
     String getUser(String id);
 
     String getPassword(String id);
+
+    boolean updateUser_Pw(String newUserName, String newPw);
 }

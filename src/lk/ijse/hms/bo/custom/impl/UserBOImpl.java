@@ -21,4 +21,9 @@ public class UserBOImpl implements UserBO {
     public String getPassword(String id) {
         return userDAO.getPassword(id);
     }
+
+    @Override
+    public boolean updateUser_Pw(String newUserName, String newPw) {
+        return userDAO.updateUser_Pw(newUserName,newPw);
+    }
 }

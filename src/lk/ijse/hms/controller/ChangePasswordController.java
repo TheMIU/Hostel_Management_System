@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
+import lk.ijse.hms.bo.BOFactory;
+import lk.ijse.hms.bo.custom.UserBO;
 import lk.ijse.hms.util.Navigation;
 import lk.ijse.hms.util.Routes;
 
@@ -47,7 +49,9 @@ public class ChangePasswordController {
     @FXML
     private ToggleButton toggleButton;
 
-    public void initialize(){
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().getBO(BOFactory.Type.USER);
+
+    public void initialize() {
         changePane.toBack();
         confirmPane.toFront();
 
@@ -56,81 +60,87 @@ public class ChangePasswordController {
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
-        Navigation.navigate(Routes.DASHBOARD,pane);
+        Navigation.navigate(Routes.DASHBOARD, pane);
     }
 
     @FXML
     void confirmClickOnAction(ActionEvent event) {
-        String currentUser = currentUsername.getText();
-        String currentPw = currentPassword.getText();
-
         Shake shakeUserName = new Shake(currentUsername);
         Shake shakePassword = new Shake(currentPassword);
 
-        if(currentUser.equals(getCurrentUser()) && currentPw.equals(getCurrentPw())){
+        if (isCorrectUserName() && isCorrectPassword()) {
             changePane.toFront();
             confirmPane.toBack();
 
             currentPassword.clear();
             currentUsername.clear();
 
-        }else {
-            if(!currentUser.equals(getCurrentUser())){
+        } else {
+            if (!isCorrectUserName()) {
                 shakeUserName.play();
                 currentUsername.requestFocus();
             }
-            if(!currentPw.equals(getCurrentPw())){
+            if (!isCorrectPassword()) {
                 shakePassword.play();
                 currentPassword.requestFocus();
             }
         }
     }
 
-    private String getCurrentPw() {
-        return "123";
+    private boolean isCorrectUserName() {
+        String user = userBO.getUser("1");
+        if (user == null) {
+            new Alert(Alert.AlertType.ERROR, " Database Error !").show();
+            return false;
+        }
+        return currentUsername.getText().equals(user);
     }
 
-    private String getCurrentUser() {
-        return "admin";
+    private boolean isCorrectPassword() {
+        String password = userBO.getPassword("1");
+        if (password == null) {
+            new Alert(Alert.AlertType.ERROR, " Database Error !").show();
+            return false;
+        }
+        return currentPassword.getText().equals(password);
     }
-
 
     @FXML
     void changeClickOnAction(ActionEvent event) throws IOException {
         String newUserName = newUsername.getText();
         String newPw = newPassword.getText();
 
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Confirm Update ?", ButtonType.YES, ButtonType.NO);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.YES) {
-            boolean isUpdated = updateUser_Pw(newUserName,newPw);
+        if (checkValidity(newUserName,newPw)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Confirm Update ?", ButtonType.YES, ButtonType.NO);
+            Optional<ButtonType> result = alert.showAndWait();
 
-            if(isUpdated){
-                changePane.toBack();
-                confirmPane.toFront();
+            if (result.get() == ButtonType.YES) {
 
-                newUsername.clear();
-                newPassword.clear();
+                boolean isUpdated = userBO.updateUser_Pw(newUserName, newPw);
 
-                Navigation.navigate(Routes.DASHBOARD,pane);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.INFORMATION, " Changes Saved !").show();
 
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Wrong Inputs \nTry again !").show();
+                    changePane.toBack();
+                    confirmPane.toFront();
+
+                    newUsername.clear();
+                    newPassword.clear();
+
+                    Navigation.navigate(Routes.DASHBOARD, pane);
+
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Wrong Inputs \nTry again !").show();
+                }
+            } else {
+                changePane.toFront();
+                confirmPane.toBack();
             }
-        }else {
-            changePane.toFront();
-            confirmPane.toBack();
         }
     }
 
-    private boolean updateUser_Pw(String newUserName, String newPw) {
-        boolean isValid = true;
-        if(isValid){
-            new Alert(Alert.AlertType.INFORMATION," Changes Saved !").show();
-            return true;
-        }else {
-            return false;
-        }
+    private boolean checkValidity(String newUserName, String newPw) {
+        return true;
     }
 
     @FXML
@@ -140,7 +150,7 @@ public class ChangePasswordController {
             shownPassword.textProperty().bind(Bindings.concat(newPassword.getText()));
             toggleButton.setText("Hide");
 
-        }else{
+        } else {
             shownPassword.setVisible(false);
             newPassword.setVisible(true);
             toggleButton.setText("Show");
