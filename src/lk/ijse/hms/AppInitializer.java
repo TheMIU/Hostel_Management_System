@@ -18,7 +18,7 @@ public class AppInitializer extends Application {
         primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../../../resources/view/Login.fxml"))));
         primaryStage.show();
         primaryStage.setResizable(false);
-        // primaryStage.setY(0);
+        primaryStage.setY(0);
         primaryStage.setTitle("24D Hostel Management System | Login");
     }
 }

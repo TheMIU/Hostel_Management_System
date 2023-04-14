@@ -18,14 +18,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="705.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hms.controller.StudentController">
+<AnchorPane fx:id="pane" prefHeight="710.0" prefWidth="1371.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hms.controller.StudentController">
    <children>
-      <ImageView fitHeight="705.0" fitWidth="1250.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="779.0" fitWidth="1550.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/Login.jpg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="41.0" layoutY="131.0" prefHeight="534.0" prefWidth="1169.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
+      <AnchorPane layoutX="100.0" layoutY="131.0" prefHeight="534.0" prefWidth="1169.0" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
          <effect>
             <DropShadow color="#00000080" height="14.78" offsetX="8.0" offsetY="8.0" radius="12.525" width="37.32" />
          </effect>
@@ -139,7 +139,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <Label layoutX="555.0" layoutY="76.0" prefHeight="27.0" prefWidth="141.0" style="-fx-text-fill: ffffff;" text="Students">
+      <Label layoutX="603.0" layoutY="86.0" prefHeight="27.0" prefWidth="141.0" style="-fx-text-fill: ffffff;" text="Students">
          <font>
             <Font name="Calibri Bold" size="36.0" />
          </font>

@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
@@ -23,6 +25,9 @@ import lk.ijse.hms.util.Routes;
 import java.io.IOException;
 
 public class LoginController {
+
+    @FXML
+    private ImageView imgPasswordView;
 
     @FXML
     private Label shownPassword;
@@ -59,11 +64,13 @@ public class LoginController {
             shownPassword.setVisible(true);
             shownPassword.textProperty().bind(Bindings.concat(txtPassword.getText()));
             toggleButton.setText("Hide");
+            imgPasswordView.setImage(new Image("resources/img/eye-close.png"));
 
         }else{
             shownPassword.setVisible(false);
             txtPassword.setVisible(true);
             toggleButton.setText("Show");
+            imgPasswordView.setImage(new Image("resources/img/eye-open.png"));
         }
     }
 
