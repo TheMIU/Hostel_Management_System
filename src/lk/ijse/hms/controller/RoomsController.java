@@ -202,14 +202,14 @@ public class RoomsController {
 
     private boolean isValidType() {
         Pattern pattern = Pattern.compile("^(AC|Non-AC|None)$");
-        Matcher matcher = pattern.matcher(txtKeyMoney.getText());
+        Matcher matcher = pattern.matcher(txtType.getText());
 
         boolean isMatches = matcher.matches();
         if (isMatches) {
             return true;
         } else {
-            Shake shakeUserName = new Shake(txtKeyMoney);
-            txtKeyMoney.requestFocus();
+            Shake shakeUserName = new Shake(txtType);
+            txtType.requestFocus();
             shakeUserName.play();
             return false;
         }
@@ -217,14 +217,14 @@ public class RoomsController {
 
     private boolean isValidRoomTypeID() {
         Pattern pattern = Pattern.compile("^(?:RM-)[0-9]{4}$");
-        Matcher matcher = pattern.matcher(txtKeyMoney.getText());
+        Matcher matcher = pattern.matcher(txtRoomTypeID.getText());
 
         boolean isMatches = matcher.matches();
         if (isMatches) {
             return true;
         } else {
-            Shake shakeUserName = new Shake(txtKeyMoney);
-            txtKeyMoney.requestFocus();
+            Shake shakeUserName = new Shake(txtRoomTypeID);
+            txtRoomTypeID.requestFocus();
             shakeUserName.play();
             return false;
         }

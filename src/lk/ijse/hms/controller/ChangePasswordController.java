@@ -10,6 +10,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import lk.ijse.hms.bo.BOFactory;
@@ -24,6 +26,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChangePasswordController {
+    @FXML
+    private ImageView imgPasswordView;
+
     @FXML
     private AnchorPane pane;
 
@@ -177,11 +182,12 @@ public class ChangePasswordController {
             shownPassword.setVisible(true);
             shownPassword.textProperty().bind(Bindings.concat(newPassword.getText()));
             toggleButton.setText("Hide");
-
+            imgPasswordView.setImage(new Image("resources/img/eye-close.png"));
         } else {
             shownPassword.setVisible(false);
             newPassword.setVisible(true);
             toggleButton.setText("Show");
+            imgPasswordView.setImage(new Image("resources/img/eye-open.png"));
         }
     }
 

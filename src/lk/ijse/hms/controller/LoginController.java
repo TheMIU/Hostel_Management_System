@@ -25,7 +25,6 @@ import lk.ijse.hms.util.Routes;
 import java.io.IOException;
 
 public class LoginController {
-
     @FXML
     private ImageView imgPasswordView;
 
